@@ -32,12 +32,87 @@ document.addEventListener('DOMContentLoaded', () => {
   // ─── CERTIFICATE MODAL ───
   initCertModal();
 
+  // ─── CARD3D TILT ───
+  initCard3D();
+
   // ─── SEND BUTTON PULSE ───
   setTimeout(() => {
     const sendBtn = document.getElementById('sendBtn');
     if (sendBtn) sendBtn.classList.add('pulse');
   }, 2500);
 });
+
+
+/* ═══════════════════════════════════════════════════════
+   CARD3D — 3D TILT + SHINE + CLICK
+   ═══════════════════════════════════════════════════════ */
+function initCard3D() {
+  const cards = document.querySelectorAll('.card3d');
+  if (!cards.length) return;
+
+  cards.forEach(card => {
+    let rafId = null;
+    let isHovered = false;
+
+    // ── Mouse move: update tilt + shine ──
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const rotateY = ((x / rect.width)  - 0.5) * 25;
+      const rotateX = ((y / rect.height) - 0.5) * -25;
+
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => {
+        card.style.transform =
+          `perspective(1200px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(18px)`;
+        card.style.boxShadow =
+          `0 20px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.18)`;
+
+        // Shimmer angle tracks pointer
+        const shine = card.querySelector('.card3d-shine');
+        if (shine) {
+          const angle = rotateY + 135;
+          shine.style.background =
+            `linear-gradient(${angle}deg, transparent 40%, rgba(255,255,255,0.22) 50%, transparent 60%)`;
+        }
+      });
+    });
+
+    // ── Mouse enter ──
+    card.addEventListener('mouseenter', () => {
+      isHovered = true;
+    });
+
+    // ── Mouse leave: reset tilt ──
+    card.addEventListener('mouseleave', () => {
+      isHovered = false;
+      if (rafId) cancelAnimationFrame(rafId);
+      card.style.transform =
+        'perspective(1200px) rotateX(0deg) rotateY(0deg) translateZ(0)';
+      card.style.boxShadow =
+        '0 10px 40px rgba(0,0,0,0.35), 0 0 0 1px rgba(255,255,255,0.12)';
+      const shine = card.querySelector('.card3d-shine');
+      if (shine) shine.style.background = 'transparent';
+    });
+
+    // ── Click: open cert in new tab ──
+    card.addEventListener('click', () => {
+      const href = card.dataset.href;
+      if (href) window.open(href, '_blank', 'noopener,noreferrer');
+    });
+
+    // ── Keyboard: Enter / Space to activate ──
+    card.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const href = card.dataset.href;
+        if (href) window.open(href, '_blank', 'noopener,noreferrer');
+      }
+    });
+  });
+}
+
 
 
 /* ═══════════════════════════════════════════════════════
@@ -60,6 +135,23 @@ function initParticles() {
 
   resize();
   window.addEventListener('resize', resize);
+
+  // ── Fade out particles on spotlight hero section ──
+  const landingSection = document.getElementById('landing');
+  function updateParticleVisibility() {
+    if (!landingSection) return;
+    const heroBottom = landingSection.offsetTop + landingSection.offsetHeight;
+    const scrollY = window.scrollY;
+    // Fade out in hero zone, fade back in past hero
+    if (scrollY < heroBottom - 100) {
+      const ratio = Math.min(scrollY / 300, 1);
+      canvas.style.opacity = (ratio * 0.7).toFixed(2); // starts hidden, grows
+    } else {
+      canvas.style.opacity = '1';
+    }
+  }
+  updateParticleVisibility();
+  window.addEventListener('scroll', updateParticleVisibility, { passive: true });
 
   window.addEventListener('mousemove', (e) => {
     mouse.x = e.clientX;
@@ -142,6 +234,7 @@ function initParticles() {
 
   animate();
 }
+
 
 
 /* ═══════════════════════════════════════════════════════
