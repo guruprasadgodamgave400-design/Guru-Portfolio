@@ -320,8 +320,9 @@ ul {
 }
 
 .hero-left .hero-stats {
-  margin-left: 0;
-  margin-right: 0;
+  margin-top: 36px !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
   max-width: 100%;
 }
 
@@ -338,7 +339,9 @@ ul {
   align-items: stretch;
   justify-content: center;
   width: 100%;
-  min-height: 460px;
+  max-width: 440px;
+  min-height: 480px;
+  left: -40px;
 }
 
 /* ═══════════════════════════════════════════════════════
@@ -415,8 +418,11 @@ ul {
 
 /* ── Open to Opportunities — top right ── */
 .flt-status {
-  top: 6%;
-  right: 4%;
+  top: 4%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: max-content;
   background: rgba(16, 185, 129, 0.1);
   border: 1px solid rgba(16, 185, 129, 0.3);
   color: #6ee7b7;
@@ -428,7 +434,7 @@ ul {
 
 /* ── NASA Space Apps — upper left ── */
 .flt-nasa {
-  top: 18%;
+  top: 16%;
   left: 2%;
   background: rgba(99, 102, 241, 0.12);
   border: 1px solid rgba(99, 102, 241, 0.35);
@@ -438,8 +444,8 @@ ul {
 
 /* ── Google Student Ambassador 2026 — mid right ── */
 .flt-google {
-  top: 50%;
-  right: 0%;
+  top: 26%;
+  right: 2%;
   background: rgba(234, 179, 8, 0.1);
   border: 1px solid rgba(234, 179, 8, 0.35);
   color: #fde68a;
@@ -449,8 +455,11 @@ ul {
 
 /* ── 20+ Hackathons — lower left ── */
 .flt-hack {
-  bottom: 10%;
-  left: 4%;
+  bottom: 4%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: max-content;
   background: rgba(16, 185, 129, 0.1);
   border: 1px solid rgba(16, 185, 129, 0.3);
   color: #6ee7b7;
@@ -493,8 +502,8 @@ ul {
 
 /* Python — left-center */
 .ftag-python {
-  top: 38%;
-  left: 1%;
+  top: 46%;
+  left: 8%;
   border-color: rgba(55,118,171,0.3);
   color: #7ec8e3;
   animation: driftPython 7s ease-in-out infinite;
@@ -507,8 +516,11 @@ ul {
 
 /* React — top center */
 .ftag-react {
-  top: 8%;
-  left: 38%;
+  top: 38%;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: max-content;
   border-color: rgba(97,218,251,0.3);
   color: #61dafb;
   animation: driftReact 8s ease-in-out infinite;
@@ -521,12 +533,11 @@ ul {
 
 /* AI/ML — center */
 .ftag-aiml {
-  top: 48%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  top: 46%;
+  right: 8%;
   border-color: rgba(139,92,246,0.3);
   color: #c4b5fd;
-  animation: driftAIML 6.5s ease-in-out infinite;
+  animation: driftAIMLSimple 6.5s ease-in-out infinite;
 }
 .ftag-aiml:hover {
   border-color: rgba(139,92,246,0.6);
@@ -536,8 +547,8 @@ ul {
 
 /* OpenCV — lower center-left */
 .ftag-opencv {
-  bottom: 28%;
-  left: 22%;
+  bottom: 22%;
+  left: 16%;
   border-color: rgba(239,68,68,0.3);
   color: #fca5a5;
   animation: driftOpenCV 9s ease-in-out infinite;
@@ -551,7 +562,7 @@ ul {
 /* Node.js — lower right */
 .ftag-nodejs {
   bottom: 22%;
-  right: 6%;
+  right: 16%;
   border-color: rgba(34,197,94,0.3);
   color: #86efac;
   animation: driftNode 7.5s ease-in-out infinite;
@@ -577,6 +588,11 @@ ul {
   0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
   25%       { transform: translate(-48%, -53%) rotate(1.5deg); }
   75%       { transform: translate(-52%, -47%) rotate(-1deg); }
+}
+@keyframes driftAIMLSimple {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  25%       { transform: translate(4px, -6px) rotate(1.5deg); }
+  75%       { transform: translate(-4px, 6px) rotate(-1deg); }
 }
 @keyframes driftOpenCV {
   0%, 100% { transform: translate(0, 0) rotate(-2deg); }
@@ -628,6 +644,8 @@ ul {
 
   .hero-right {
     order: 1;
+    left: 0 !important;
+    margin: 0 auto;
   }
 
   /* Re-center elements in single-column */
@@ -812,11 +830,11 @@ ul {
 
 /* ── Hero heading ── */
 .hero-heading {
-  font-size: clamp(2.5rem, 6.5vw, 4.5rem) !important;
+  font-size: clamp(2.25rem, 5.8vw, 4rem) !important;
   font-weight: 900;
   line-height: 1.05;
   letter-spacing: -0.04em;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
   text-shadow: 0 0 80px rgba(255,255,255,0.08);
 }
 
@@ -825,7 +843,7 @@ ul {
   font-size: 1.15rem;
   color: #94a3b8;
   line-height: 1.75;
-  margin-bottom: 28px;
+  margin-bottom: 20px;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
@@ -951,7 +969,7 @@ ul {
 .landing-designations {
   font-size: 1.25rem;
   color: var(--text-secondary);
-  margin-bottom: 32px;
+  margin-bottom: 16px;
   min-height: 32px;
 }
 
@@ -1184,7 +1202,7 @@ ul {
   .spotlight-purple{ width: 420px; height: 420px; }
   .spotlight-cyan  { width: 340px; height: 340px; }
 
-  .hero-heading { font-size: clamp(2.1rem, 9vw, 3.3rem) !important; }
+  .hero-heading { font-size: clamp(1.9rem, 8vw, 3rem) !important; }
 
   .hero-stats {
     padding: 16px 24px;
@@ -1200,6 +1218,7 @@ ul {
   .spotlight-cyan  { width: 260px; height: 260px; }
 
   .hero-heading { font-size: clamp(1.6rem, 9vw, 2.6rem) !important; }
+  .hero-heading { font-size: clamp(1.45rem, 8vw, 2.3rem) !important; }
   .hero-badge { font-size: 0.72rem; }
   .landing-cta { flex-direction: column; align-items: center; }
   .btn { width: 100%; justify-content: center; }
@@ -4432,9 +4451,9 @@ html, body {
     letter-spacing: 1.5px;
   }
 
-  .hero-heading { font-size: clamp(1.4rem, 10vw, 2.1rem) !important; }
+  .hero-heading { font-size: clamp(1.25rem, 9vw, 1.9rem) !important; }
   .landing-name {
-    font-size: clamp(1.4rem, 10vw, 2.1rem);
+    font-size: clamp(1.25rem, 9vw, 1.9rem);
     margin-bottom: 12px;
   }
 
